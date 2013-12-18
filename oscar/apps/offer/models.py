@@ -1568,3 +1568,6 @@ class ShippingPercentageDiscountBenefit(ShippingBenefit):
     def shipping_discount(self, charge):
         discount = charge * self.value / D('100.0')
         return discount.quantize(D('0.01'))
+
+
+from .receivers import * 
