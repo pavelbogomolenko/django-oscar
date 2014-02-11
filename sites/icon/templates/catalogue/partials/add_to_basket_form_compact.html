@@ -1,0 +1,19 @@
+{% load url from future %}
+{% load basket_tags %}
+{% load i18n %}
+{% load purchase_info_tags %}
+
+{% purchase_info_for_product request product as session %}
+
+<div class="pull-right">
+{% if session.availability.is_available_to_buy %}
+    {% basket_form request product as basket_form single %}
+    <form action="{% url 'basket:add' %}" method="post">
+        {% csrf_token %}
+        {{ basket_form.as_p }}
+        <button type="submit" class="btn btn-danger btn-sm">{% trans "Add to basket" %}</button>
+    </form>
+{% else %}
+    <span class="btn btn-danger btn-sm disabled">{% trans "Add to basket" %}</span>
+{% endif %}
+</div>

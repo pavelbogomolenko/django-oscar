@@ -1,0 +1,38 @@
+{% load url from future %}
+{% load currency_filters %}
+{% load category_tags %}
+{% load flatpages %}
+{% get_flatpages as flatpages %}
+{% load i18n %}
+
+<!-- Navigation menu -->
+<div class="navi">
+	<div id="ddtopmenubar" class="mattblackmenu">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/faq/">{% trans "Faq" %}</a></li>
+			<li><a href="/delivery/">{% trans "Delivery" %}</a></li>
+			<li><a href="{% url 'catalogue:index' %}" rel="ddsubmenu1">{% trans "Browse store" %}</a>
+				<ul id="ddsubmenu1" class="ddsubmenustyle">
+					{% category_tree depth=2 as tree_categories %}
+					{% if tree_categories %}
+						{% for tree_category, info in tree_categories %}
+							{% if info.has_children %}
+								<li class="dropdown-submenu">
+								<a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
+								<ul class="dropdown-menu">
+							{% else %}
+								<li><a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a></li>
+							{% endif %}
+
+							{% for close in info.num_to_close %}
+							</ul></li>
+							{% endfor %}
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</li>
+			<li><a href="/contacts/">{% trans "Contacts" %}</a></li>
+		</ul>
+	</div>
+</div>

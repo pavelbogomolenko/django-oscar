@@ -33,7 +33,7 @@
         </header>
 
         {% block content_wrapper %}
-        {% block page_promotions %}{% endblock %}   
+        {% block page_promotions %}{% endblock %}
         <div class="page">
             <div class="container-fluid">
                 <div class="page_inner">
@@ -47,7 +47,7 @@
                     {% block subnavigation %}{% endblock %}
                     <div class="content">
                         {% block subheader %}{% endblock subheader %}
-                        
+
                         {# Div exists for AJAX updates to entire content section #}
                         <div id="content_inner">{% block content %}{% endblock %}</div>
                     </div>

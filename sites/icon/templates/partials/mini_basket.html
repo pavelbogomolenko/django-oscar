@@ -1,0 +1,18 @@
+{% load url from future %}
+{% load currency_filters %}
+{% load i18n %}
+
+<div class="kart-links">
+	{% if user.is_authenticated %}
+		<a href="{% url 'customer:logout' %}"><i class="icon-signout"></i> {% trans "Logout" %}</a>
+	{% else %}
+		<a href="{% url 'customer:login' %}"><i class="icon-signin"></i> {% trans "Login or register" %}</a>
+	{% endif %}
+	<a href="{% url 'basket:summary' %}"><i class="icon-shopping-cart"></i>
+		{% if request.basket.is_tax_known %}
+		{{ request.basket.total_incl_tax|currency:request.basket.currency }}
+		{% else %}
+		{{ request.basket.total_excl_tax|currency:request.basket.currency }}
+		{% endif %}
+	</a>
+</div>

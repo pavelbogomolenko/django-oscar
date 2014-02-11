@@ -20,7 +20,7 @@ class EnvFileHandler(BaseFileHandler):
 
     def _open(self):
         # We import settings here to avoid a circular reference as this module
-        # will be imported when settings.py is executed.
+        # will be imported when dev.py is executed.
         from django.conf import settings
         self.baseFilename = os.path.join(settings.LOG_ROOT, self.filename)
         return BaseFileHandler._open(self)

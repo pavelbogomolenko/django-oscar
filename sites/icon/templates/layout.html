@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load compress %}
+{% load promotion_tags %}
+
+{% block layout %}
+
+	{# Site logo/title, mini-basket, browse dropdown and searchbox #}
+	<div class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2 col-sm-2">
+				{% include "partials/brand.html" %}
+				</div>
+
+				<div class="col-md-6 col-sm-5">
+				{% block navigation %}
+				{% include "partials/nav_primary.html" %}
+				{% endblock %}
+				</div>
+
+				<div class="col-md-4 col-sm-5">
+					{# Mini-basket wrapped in a block so some templates can now display it #}
+					{% block mini_basket %}{% include "partials/mini_basket.html" %}{% endblock %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{# Main content of page - other layout templates may override this block #}
+	{% block content_wrapper %}
+		{% block header %}
+			<div class="page-title">
+				<div class="container">
+					<h2>{% block headertext %}{% endblock %}</h2>
+					<hr />
+				</div>
+			</div>
+		{% endblock %}
+
+
+		{% block subnavigation %}{% endblock %}
+
+		{% block subheader %}{% endblock subheader %}
+
+		{% block page_promotions %}{% endblock %}
+
+		{% include "partials/alert_messages.html" %}
+
+		{# Div exists for AJAX updates to entire content section #}
+		{% block content %}
+		{% endblock %}
+
+		{# Render promotions #}
+		<div class="recent-posts blocky">
+			{% for promotion in promotions_right %}
+				{% render_promotion promotion %}
+			{% endfor %}
+		</div>
+
+	{% endblock %}
+
+	{% include "partials/footer.html" %}
+
+	<!-- Scroll to top -->
+	<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+{% endblock %}
+
+{% block extrascripts %}
+	{% include "partials/extrascripts.html" %}
+	{{ block.super }}
+{% endblock %}

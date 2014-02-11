@@ -1,0 +1,59 @@
+{% load url from future %}
+{% load reviews_tags %}
+{% load thumbnail %}
+{% load i18n %}
+{% load display_tags %}
+{% load staticfiles %}
+
+{% block product %}
+	<div class="col-md-4 col-sm-4 col-xs-6">
+		<div class="item">
+			<!-- Use the below link to put HOT icon -->
+			{% if product.is_discountable %}
+			<div class="item-icon"><span>{% trans "new" %}</span></div>
+			{% endif %}
+
+			{% block product_review %}
+				{% iffeature "reviews" %}
+					<p class="star-rating {{ product.rating|as_stars }}">
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+					</p>
+				{% endiffeature %}
+			{% endblock %}
+
+			{% block product_image %}
+				<!-- Item image -->
+				<div class="item-image">
+					{% with image=product.primary_image %}
+						{% thumbnail image.original "x155" upscale=False as thumb %}
+							<a href="{{ product.get_absolute_url }}"><img src="{{ thumb.url }}" alt="{{ product.get_title }}"  class="img-responsive"></a>
+						{% endthumbnail %}
+					{% endwith %}
+				</div>
+			{% endblock %}
+
+			<!-- Item details -->
+			<div class="item-details">
+				<!-- Name -->
+				<h5><a href="{{ product.get_absolute_url }}">{{ product.get_title|truncatewords:4 }}</a></h5>
+				<div class="clearfix"></div>
+				<!-- Para. Note more than 2 lines. -->
+				<p>{{ product.get_description }}</p>
+				<hr />
+				<!-- Price -->
+				<div class="item-price pull-left">
+					{% include "catalogue/partials/stock_record.html" %}
+				</div>
+				<!-- Add to cart -->
+				{% if not product.is_group %}
+					{% include "catalogue/partials/add_to_basket_form_compact.html" %}
+				{% endif %}
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

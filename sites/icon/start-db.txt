@@ -1,0 +1,4 @@
+sudo su postgres
+postgres -D /opt/local/var/db/postgresql93/defaultdb
+or
+pg_ctl -D /opt/local/var/db/postgresql93/defaultdb -l logfile start

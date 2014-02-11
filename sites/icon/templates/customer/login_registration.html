@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}
+	{% trans 'Login or register' %} | {{ block.super }}
+{% endblock %}
+
+{% block headertext %}
+	{% trans 'Login or register' %}
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ul class="breadcrumb">
+		<li>
+			<a href="{% url 'promotions:home' %}">{% trans 'Home' %}</a>
+			<span class="divider">/</span>
+		</li>
+		<li class="active">{% trans 'Login or register' %}</li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="blocky">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-6">
+					<div class="register-login">
+						<div class="cool-block">
+						<form id="login_form" action="{{ request.get_full_path }}" method="post" class="well">
+							<h3>{% trans 'Log In' %}</h3>
+							{% csrf_token %}
+							{% include "partials/form_fields.html" with form=login_form %}
+							<p><a href="{% url 'password-reset' %}">{% trans "I've forgotten my password" %}</a></p>
+							<button name="login_submit" type="submit" value="Log In"
+							        class="btn btn-info btn-primary">{% trans 'Log In' %}</button>
+						</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="register-login">
+						<div class="cool-block">
+						<form id="register_form" action="{{ request.get_full_path }}" method="post" class="well">
+							<h3>{% trans 'Register' %}</h3>
+							{% csrf_token %}
+							{% include "partials/form_fields.html" with form=registration_form %}
+							<p>&nbsp;</p>
+							<button name="registration_submit" type="submit" value="Register"
+							        class="btn btn-info btn-primary js-disable-on-click"
+							        data-loading-text="{% trans 'Registering...' %}">{% trans 'Register' %}</button>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sep-bor"></div>
+		</div>
+	</div>
+
+{% endblock content %}

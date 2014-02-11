@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load product_tags %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="section-title">
+				<h4>{{ promotion.name }}</h4>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					{{ promotion.description|safe }}
+					<div class="my_carousel">
+						{% if products|length > 4 %}
+						<div class="carousel_nav pull-right">
+							<!-- Carousel navigation -->
+							<a class="prev" id="car_prev" href="#" style="display: inline-block;"><i class="icon-chevron-left"></i></a>
+							<a class="next" id="car_next" href="#" style="display: inline-block;"><i class="icon-chevron-right"></i></a>
+						</div>
+						{% endif %}
+						<div class="caroufredsel_wrapper">
+							<ul class="carousel_container">
+								{% for product in products %}
+									<li class="{% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">{% render_product product %}</li>
+								{% endfor %}
+							</ul>
+						</div>
+
+						{% if block.link_url %}
+							<a href="{{ block.link_url }}">{% trans "See more" %}</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div
+{% endblock %}
