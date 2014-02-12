@@ -3,9 +3,9 @@ __author__ = 'pavelbogomolenko'
 import os
 import sys
 
-print("-" * 50)
-print(os.environ.get('DATABASE_URL'))
-print("-" * 50)
+#print("-" * 50)
+#print(os.environ.get('DATABASE_URL'))
+#print("-" * 50)
 
 path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
