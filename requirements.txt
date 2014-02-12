@@ -13,7 +13,6 @@ django-debug-toolbar-template-timings==0.5.5
 django-extensions==1.2.5
 django-extra-views==0.6.3
 django-haystack==2.1.0
-django-oscar==0.6-beta-1
 django-rosetta==0.7.3
 django-toolbelt==0.0.1
 django-treebeard==2.0b2
