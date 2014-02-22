@@ -39,7 +39,6 @@ DATABASES = {
 	}
 }
 
-
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -273,7 +272,6 @@ LOGGING = {
 	}
 }
 
-
 INSTALLED_APPS = [
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
@@ -290,7 +288,9 @@ INSTALLED_APPS = [
 	'south',
 	'rosetta',          # For i18n testing
 	'compressor',
+	'storages'
 ]
+
 from oscar import get_core_apps
 INSTALLED_APPS = INSTALLED_APPS + get_core_apps()
 
@@ -382,7 +382,6 @@ OSCAR_ORDER_STATUS_PIPELINE = {
 # which will install node.js and less in your virtualenv.
 
 USE_LESS = False
-
 COMPRESS_ENABLED = False
 COMPRESS_PRECOMPILERS = (
 	('text/less', 'lessc {infile} {outfile}'),
@@ -408,12 +407,11 @@ if not os.path.exists(LOG_ROOT):
 
 # Sorl
 # ====
-
-THUMBNAIL_DEBUG = True
-THUMBNAIL_KEY_PREFIX = 'oscar-icon'
+#THUMBNAIL_DEBUG = True
+#THUMBNAIL_KEY_PREFIX = 'oscar-icon'
 
 # Use a custom KV store to handle integrity error
-THUMBNAIL_KVSTORE = 'oscar.sorl_kvstore.ConcurrentKVStore'
+#THUMBNAIL_KVSTORE = 'oscar.sorl_kvstore.ConcurrentKVStore'
 
 # Django 1.6 has switched to JSON serializing for security reasons, but it does not
 # serialize Models. We should resolve this by extending the

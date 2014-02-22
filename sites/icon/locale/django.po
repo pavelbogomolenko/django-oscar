@@ -4860,7 +4860,7 @@ msgstr "Эта страница доступна только для автор�
 #: templates/oscar/registration/password_reset_form.html:12
 #: templates/oscar/search/results.html:16
 msgid "Home"
-msgstr "Начало"
+msgstr "Главная"
 
 #: templates/oscar/basket/messages/addition.html:4
 #, python-format
