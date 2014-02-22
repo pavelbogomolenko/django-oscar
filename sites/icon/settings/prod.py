@@ -14,8 +14,8 @@ ALLOWED_HOSTS = ['*']
 
 # LESS/CSS/statics
 # ================
-USE_LESS = True
-COMPRESS_ENABLED = True
+#USE_LESS = True
+#COMPRESS_ENABLED = True
 
 STATIC_URL = 'https://icon-oscar.s3.amazonaws.com/'
 
