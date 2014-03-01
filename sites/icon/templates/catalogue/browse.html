@@ -6,6 +6,7 @@
 {% load category_tags %}
 {% load product_tags %}
 {% load i18n %}
+{% load icontags %}
 {% block title %}
 	{{ summary }} | {{ block.super }}
 {% endblock %}
@@ -67,25 +68,16 @@
 				</div>
 
 				{% block column_left %}
-					{% category_tree as tree_categories %}
-					{% if tree_categories %}
+					{% full_tree_for_category categories.category as categories %}
+					{% if categories %}
 						<div class="col-md-3 col-md-pull-9">
 							<div class="sidey">
-								<ul class="nav">
-								{% for tree_category, info in tree_categories %}
-									<li>
-									{% if tree_category.pk == category.pk %}
-										<a class="active" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
-									{% else %}
-										<a href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
-									{% endif %}
-
-									{% if info.has_children %}<ul>{% else %}</li>{% endif %}
-									{% for n in info.num_to_close %}
-										</ul></li>
-									{% endfor %}
+								{% for node,structure in categories|tree_info %}
+									{% if structure.new_level %}<ul class="nav"><li>{% else %}</li><li>{% endif %}
+									{% related_category_node node %}
+									<a {% if related_cat_node.pk == category.pk %}class="active"{% endif %} href="{{ related_cat_node.get_absolute_url }}">{{ related_cat_node.name }}</a>
+									{% for level in structure.closed_levels %}</li></ul>{% endfor %}
 								{% endfor %}
-								</ul>
 							</div>
 						</div>
 					{% endif %}

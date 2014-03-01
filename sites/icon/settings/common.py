@@ -11,7 +11,7 @@ location = lambda x: os.path.join(
 
 USE_TZ = True
 
-ALLOWED_HOSTS = ['latest.oscarcommerce.com']
+ALLOWED_HOSTS = ['*']
 
 ADMINS = (
 	('Pavlo Bogomolenko', 'bpsource@gmail.com'),
@@ -283,12 +283,15 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'django_extensions',
 	# Debug toolbar + extensions
-	'debug_toolbar',
+	#'debug_toolbar',
 	'template_timings_panel',
 	'south',
 	'rosetta',          # For i18n testing
 	'compressor',
-	'storages'
+	'storages',
+	'categories',
+	'categories.editor',
+	'apps.oscartweaks'
 ]
 
 from oscar import get_core_apps
@@ -422,6 +425,20 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 OSCAR_DEFAULT_CURRENCY = 'ГРН'
 OSCAR_CURRENCY_FORMAT = u'¤¤ #,##0.00'
 OSCAR_CURRENCY_LOCALE = 'ru_RU'
+
+#CATEGORIES_SETTINGS = {
+#	'FK_REGISTRY': {
+#		'oscar.apps.catalogue.Category': {'name': 'category', 'related_name': 'amodel_cats'}
+#	}
+#}
+
+CATEGORIES_SETTINGS = {
+	'ALLOW_SLUG_CHANGE': True,
+	'RELATION_MODELS': ['catalogue.category'],
+	'FK_REGISTRY': {
+		'catalogue.category': 'category'
+	}
+}
 
 # Try and import local settings which can be used to override any of the above.
 try:

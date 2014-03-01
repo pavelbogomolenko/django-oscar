@@ -1,8 +1,6 @@
 {% load url from future %}
 {% load currency_filters %}
 {% load category_tags %}
-{% load flatpages %}
-{% get_flatpages as flatpages %}
 {% load i18n %}
 
 <!-- Navigation menu -->
@@ -13,26 +11,17 @@
 			<li><a href="/faq/">{% trans "Faq" %}</a></li>
 			<li><a href="/delivery/">{% trans "Delivery" %}</a></li>
 			<li><a href="{% url 'catalogue:index' %}" rel="ddsubmenu1">{% trans "Browse store" %}</a>
-				<ul id="ddsubmenu1" class="ddsubmenustyle">
-					{% category_tree depth=2 as tree_categories %}
-					{% if tree_categories %}
-						{% for tree_category, info in tree_categories %}
-							{% if info.has_children %}
-								<li class="dropdown-submenu">
-								<a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
-								<ul class="dropdown-menu">
-							{% else %}
-								<li><a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a></li>
-							{% endif %}
-
-							{% for close in info.num_to_close %}
-							</ul></li>
-							{% endfor %}
-						{% endfor %}
-					{% endif %}
-				</ul>
 			</li>
 			<li><a href="/contacts/">{% trans "Contacts" %}</a></li>
 		</ul>
 	</div>
+</div>
+
+<div class="ddsubmenustyle" style="z-index: 2000; left: 0px; top: -1000px; visibility: hidden; height: 195px; width: 150px; overflow: visible; opacity: 1;">
+	{% full_tree_for_category categories.category as categories %}
+	{% for node,structure in categories|tree_info %}
+		{% if structure.new_level %}<ul class="dropdown" id="ddsubmenu1"><li>{% else %}</li><li>{% endif %}
+		<a href="#">{{ node.name }}</a>
+		{% for level in structure.closed_levels %}</li></ul>{% endfor %}
+	{% endfor %}
 </div>

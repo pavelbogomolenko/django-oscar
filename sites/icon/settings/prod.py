@@ -10,7 +10,7 @@ DATABASES['default'] = dj_database_url.config()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # LESS/CSS/statics
 # ================
@@ -32,6 +32,6 @@ AWS_S3_FILE_OVERWRITE = False
 
 # see http://developer.yahoo.com/performance/rules.html#expires
 AWS_HEADERS = {
-'Expires': 'Thu, 15 Apr 2010 20:00:00 GMT',
-'Cache-Control': 'max-age=86400',
+	'Expires': 'Thu, 15 Apr 2010 20:00:00 GMT',
+	'Cache-Control': 'max-age=86400',
 }

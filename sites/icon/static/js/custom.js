@@ -85,14 +85,14 @@ if($('#carousel_container').get(0)) {
 $(".totop").hide();
 
 $(function () {
-	$(window).scroll(function () {
+/*	$(window).scroll(function () {
 		if ($(this).scrollTop() > 300) {
 			$('.totop').slideDown();
 		}
 		else {
 			$('.totop').slideUp();
 		}
-	});
+	});*/
 
 	$('.totop a').click(function (e) {
 		e.preventDefault();
@@ -111,14 +111,24 @@ $("#slist a").click(function (e) {
 
 /* Careers */
 
-$('#myTab a').click(function (e) {
-	e.preventDefault()
-	$(this).tab('show')
-})
+$('#myTab a').on("click", function (e) {
+	e.preventDefault();
+	$(this).tab('show');
+});
+
+//simulate tab click
+var hash = window.location.hash;
+if(hash) {
+	$('#myTab li').each(function(){
+		if ($(this).children("a").attr("href") == hash) {
+			$(this).children("a").trigger("click");
+		}
+	});
+}
 
 
 /* Ecommerce sidebar */
 
-$(document).ready(function () {
-	$('.sidey .nav').navgoco();
-});
+//$(document).ready(function () {
+//	$('.sidey .nav').navgoco('toggle', true);
+//});

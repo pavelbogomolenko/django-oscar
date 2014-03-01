@@ -997,10 +997,6 @@ strong {
 	border-bottom: 1px solid #0fa6bc;
 }
 
-.sidey .nav > li.active > a {
-	background: #444;
-}
-
 .sidey .nav a .caret {
 	float: right;
 	width: 0;
@@ -1111,6 +1107,10 @@ strong {
 .item-review .rmeta {
 	font-style: italic;
 	color: #888;
+}
+
+#addreview {
+	padding-top: 20px;
 }
 
 /* Items */

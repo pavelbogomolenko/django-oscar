@@ -2,6 +2,8 @@
 
 from common import *
 
+ALLOWED_HOSTS = ['127.0.0.1']
+
 USE_TZ = True
 
 DEBUG = True

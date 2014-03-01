@@ -56,13 +56,13 @@
 				<div class="single-item">
 					<div class="row">
 						{% block product_gallery %}
-							<div class="span6">
+							<div class="col-md-4 col-xs-5">
 								{% include "catalogue/partials/gallery.html" %}
 							</div>
 						{% endblock %}
 
 						{% block product_main %}
-							<div class="span6">
+							<div class="col-md-4 col-xs-5">
 								{% comment %}
 					            This is a but clunky here.  Better to have some kind of JS-driven dashboard menu that
 					            pops out when clicked.  A bit like the Django-Debug-Toolbar button
@@ -100,11 +100,11 @@
 										<h4>
 									{% endif %}
 								{% if product|is_review_permitted:user %}
-									<a id="write_review"
+									<!--<a id="write_review"
 									   href="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id %}#addreview"
 									   class="btn btn-success btn-small">
 										{% trans "Write a review" %}
-									</a>
+									</a> -->
 								{% endif %}
 								</h4>
 								{% endiffeature %}
@@ -200,7 +200,6 @@
 					<div class="tab-pane fade" id="tab3">
 						{% iffeature "reviews" %}
 							{% block product_review %}
-								<section>
 									<div id="reviews" class="sub-header">
 										{% if reviews|length > 3 %}
 											<a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}"
@@ -214,7 +213,7 @@
 											{% if product|is_review_permitted:user %}
 												{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
 												{% blocktrans %}This product does not have any reviews yet" -
-													<a href="{{ add_review_url }}#addreview">be the first to write one</a>.
+													<a href="{{ add_review_url }}#tab3">be the first to write one</a>.
 												{% endblocktrans %}
 											{% else %}
 												{% trans "This product does not have any reviews yet" %}.
@@ -229,7 +228,6 @@
 											{% endfor %}
 										</ol>
 									{% endif %}
-								</section>
 							{% endblock product_review %}
 						{% endiffeature %}
 					</div>
@@ -238,25 +236,15 @@
 			</div>
 
 			{% block column_left %}
-				{% category_tree as tree_categories %}
-				{% if tree_categories %}
+				{% full_tree_for_category categories.category as categories %}
+				{% if categories %}
 					<div class="col-md-3 col-md-pull-9">
 						<div class="sidey">
-							<ul class="nav">
-								{% for tree_category, info in tree_categories %}
-									<li>
-										{% if tree_category.pk == category.pk %}
-											<a class="active" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
-										{% else %}
-											<a href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
-										{% endif %}
-
-										{% if info.has_children %}<ul>{% else %}</li>{% endif %}
-									{% for n in info.num_to_close %}
-										</ul></li>
-									{% endfor %}
-								{% endfor %}
-							</ul>
+							{% for node,structure in categories|tree_info %}
+								{% if structure.new_level %}<ul class="nav"><li>{% else %}</li><li>{% endif %}
+								<a {% if request.get_full_path == node.alternate_url %}class="active"{% endif %} href="{{ node.alternate_url }}">{{ node.name }}</a>
+								{% for level in structure.closed_levels %}</li></ul>{% endfor %}
+							{% endfor %}
 						</div>
 					</div>
 				{% endif %}

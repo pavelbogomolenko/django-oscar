@@ -67,7 +67,7 @@ isContained:function(m, e){
 },
 
 addpointer:function(target, imgclass, imginfo, BeforeorAfter){
-	var pointer=document.createElement("img")
+/*	var pointer=document.createElement("img")
 	pointer.src=imginfo[0]
 	pointer.style.width=imginfo[1]+"px"
 	pointer.style.height=imginfo[2]+"px"
@@ -82,7 +82,7 @@ addpointer:function(target, imgclass, imginfo, BeforeorAfter){
 	if (BeforeorAfter=="before")
 		target.insertBefore(pointer, target.firstChild)
 	else
-		target.appendChild(pointer)
+		target.appendChild(pointer)*/
 },
 
 css:function(el, targetclass, action){
