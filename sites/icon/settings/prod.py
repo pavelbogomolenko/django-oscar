@@ -20,8 +20,9 @@ ALLOWED_HOSTS = ['.herokuapp.com']
 STATIC_URL = 'https://icon-oscar.s3.amazonaws.com/'
 
 #aws configuration
-AWS_ACCESS_KEY_ID = 'AKIAJLIWRCZ2D3SSRD7A'
-AWS_SECRET_ACCESS_KEY = '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'
+if 'S3_KEY' in os.environ and 'S3_SECRET' in os.environ: 
+	AWS_ACCESS_KEY_ID = os.environ['S3_KEY']
+	AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET']
 
 # aws S3 bucket configuration
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
