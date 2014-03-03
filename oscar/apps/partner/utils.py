@@ -4,15 +4,15 @@ from decimal import Decimal as D
 from django.utils.translation import ugettext_lazy as _
 
 from oscar.apps.catalogue.categories import create_from_breadcrumbs
-from oscar.apps.dashboard.reports.csv_utils import CsvUnicodeReader
 from oscar.core.loading import get_class, get_classes
+from oscar.core.compat import UnicodeCSVReader
 
 try:
     from django.db.transaction import atomic as atomic_compat
 except ImportError:
     from django.db.transaction import commit_on_success as atomic_compat
 
-ImportError = get_class('partner.exceptions', 'ImportError')
+ImportingError = get_class('partner.exceptions', 'ImportingError')
 Partner, StockRecord = get_classes('partner.models', ['Partner',
                                                       'StockRecord'])
 ProductClass, Product, Category, ProductCategory = get_classes(
@@ -31,14 +31,14 @@ class StockImporter(object):
         except Partner.DoesNotExist:
             name_list = ", ".join([d['name']
                                    for d in Partner.objects.values('name')])
-            raise ImportError(_("Partner named '%(partner)s' does not exist"
-                                " (existing partners: %(list)s)")
-                              % {'partner': partner, 'list': name_list})
+            raise ImportingError(_("Partner named '%(partner)s' does not exist"
+                                   " (existing partners: %(list)s)")
+                                 % {'partner': partner, 'list': name_list})
 
     def handle(self, file_path=None):
         u"""Handles the actual import process"""
         if not file_path:
-            raise ImportError(_("No file path supplied"))
+            raise ImportingError(_("No file path supplied"))
         Validator().validate(file_path)
         self._import(file_path)
 
@@ -48,11 +48,12 @@ class StockImporter(object):
                  'unchanged_items': 0,
                  'unmatched_items': 0}
         row_number = 0
-        for row in CsvUnicodeReader(open(file_path, 'rb'),
-                                    delimiter=self._delimiter, quotechar='"',
-                                    escapechar='\\'):
-            row_number += 1
-            self._import_row(row_number, row, stats)
+        with UnicodeCSVReader(
+                file_path, delimiter=self._delimiter,
+                quotechar='"', escapechar='\\') as reader:
+            for row in reader:
+                row_number += 1
+                self._import_row(row_number, row, stats)
         msg = "\tUpdated items: %d\n\tUnchanged items: %d\n" \
             "\tUnmatched items: %d" % (stats['updated_items'],
                                        stats['unchanged_items'],
@@ -119,7 +120,7 @@ class CatalogueImporter(object):
     def handle(self, file_path=None):
         u"""Handles the actual import process"""
         if not file_path:
-            raise ImportError(_("No file path supplied"))
+            raise ImportingError(_("No file path supplied"))
         Validator().validate(file_path)
         if self._flush is True:
             self.logger.info(" - Flushing product data before import")
@@ -139,11 +140,12 @@ class CatalogueImporter(object):
         stats = {'new_items': 0,
                  'updated_items': 0}
         row_number = 0
-        for row in CsvUnicodeReader(open(file_path, 'rb'),
-                                    delimiter=self._delimiter, quotechar='"',
-                                    escapechar='\\'):
-            row_number += 1
-            self._import_row(row_number, row, stats)
+        with UnicodeCSVReader(
+                file_path, delimiter=self._delimiter,
+                quotechar='"', escapechar='\\') as reader:
+            for row in reader:
+                row_number += 1
+                self._import_row(row_number, row, stats)
         msg = "New items: %d, updated items: %d" % (stats['new_items'],
                                                     stats['updated_items'])
         self.logger.info(msg)
@@ -213,12 +215,12 @@ class Validator(object):
     def _exists(self, file_path):
         u"""Check whether a file exists"""
         if not os.path.exists(file_path):
-            raise ImportError(_("%s does not exist") % (file_path))
+            raise ImportingError(_("%s does not exist") % (file_path))
 
     def _is_file(self, file_path):
         u"""Check whether file is actually a file type"""
         if not os.path.isfile(file_path):
-            raise ImportError(_("%s is not a file") % (file_path))
+            raise ImportingError(_("%s is not a file") % (file_path))
 
     def _is_readable(self, file_path):
         u"""Check file is readable"""
@@ -226,4 +228,4 @@ class Validator(object):
             f = open(file_path, 'r')
             f.close()
         except:
-            raise ImportError(_("%s is not readable") % (file_path))
+            raise ImportingError(_("%s is not readable") % (file_path))

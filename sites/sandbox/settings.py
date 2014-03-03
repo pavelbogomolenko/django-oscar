@@ -1,16 +1,17 @@
 import os
+import sys
 
 # Path helper
 PROJECT_DIR = os.path.dirname(__file__)
 location = lambda x: os.path.join(
     os.path.dirname(os.path.realpath(__file__)), x)
+PY3 = sys.version_info >= (3, 0)
 
 USE_TZ = True
 
 DEBUG = True
 TEMPLATE_DEBUG = True
 SQL_DEBUG = True
-SEND_BROKEN_LINK_EMAILS = False
 
 ALLOWED_HOSTS = ['latest.oscarcommerce.com',
                  'sandbox.oscar.tangentlabs.co.uk',
@@ -140,6 +141,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -330,6 +332,9 @@ HAYSTACK_CONNECTIONS = {
 # Debug Toolbar
 # =============
 
+# Implicit setup can often lead to problems with circular imports, so we
+# explicitly wire up the toolbar
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',
@@ -345,6 +350,15 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
+INTERNAL_IPS = ['127.0.0.1', '::1']
+
+if PY3:
+    # Template timings panel doesn't work with Python 3 atm
+    # https://github.com/orf/django-debug-toolbar-template-timings/issues/18
+    INSTALLED_APPS.remove('template_timings_panel')
+    DEBUG_TOOLBAR_PANELS.remove(
+        'template_timings_panel.panels.TemplateTimings.TemplateTimings')
+
 
 # ==============
 # Oscar settings
@@ -356,9 +370,6 @@ from oscar.defaults import *
 # ====
 
 OSCAR_SHOP_TAGLINE = 'Sandbox'
-
-# Enter Google Analytics ID for the tracking to be included in the templates
-GOOGLE_ANALYTICS_ID = 'UA-45363517-3'
 
 OSCAR_RECENTLY_VIEWED_PRODUCTS = 20
 OSCAR_ALLOW_ANON_CHECKOUT = True

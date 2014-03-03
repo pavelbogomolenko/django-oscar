@@ -100,7 +100,7 @@ td .btn-toolbar {
 }
 .form-inline {
   margin-bottom: 0;
-  .help-block:first-child {
+  .help-block:first-child, .error-block:first-child {
     display:none;
   }
   label {
@@ -188,7 +188,7 @@ input[type=text].hasDatepicker,
   }
 }
 .form-inline {
-  .help-block {
+  .help-block, .error-block {
     display:inline-block;
     margin:0 20px 0 10px;
     li {
@@ -972,5 +972,14 @@ textarea.plain {
   }
   .navbar-primary .nav > li > a:hover {
     background:#222;
+  }
+}
+
+// Override for Bootstrap 2.3.1/2.3.2
+// Fix disappearing menu in mobile Android Chrome
+// https://github.com/twbs/bootstrap/issues/11145
+@media (max-width: 480px) {
+  .nav-collapse {
+    -webkit-transform: none;
   }
 }

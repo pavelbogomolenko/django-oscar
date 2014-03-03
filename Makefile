@@ -10,6 +10,10 @@ upgrade:
 	python setup.py develop --upgrade
 
 sandbox: install
+	# Remove media
+	-rm -rf sites/sandbox/public/media/images
+	-rm -rf sites/sandbox/public/media/cache
+	-rm -rf sites/sandbox/public/static
 	-rm -f sites/sandbox/db.sqlite
 	# Create database
 	sites/sandbox/manage.py syncdb --noinput
@@ -42,7 +46,7 @@ demo: install
 	sites/demo/manage.py create_products --class=Books sites/demo/fixtures/books.csv
 	sites/demo/manage.py create_products --class=Downloads sites/demo/fixtures/downloads.csv
 	sites/demo/manage.py create_products --class=Clothing sites/demo/fixtures/clothing.csv
-	sites/demo/manage.py import_product_images sites/demo/fixtures/images/
+	sites/demo/manage.py oscar_import_catalogue_images sites/demo/fixtures/images.tar.gz
 	# Update search index
 	sites/demo/manage.py clear_index --noinput
 	sites/demo/manage.py update_index catalogue
@@ -85,6 +89,7 @@ puppet:
 	puppet module install --target-dir sites/puppet/modules/ saz-memcached -v 2.0.2
 	puppet module install --target-dir sites/puppet/modules/ puppetlabs/mysql
 	puppet module install --target-dir sites/puppet/modules/ puppetlabs/apache
+	puppet module install --target-dir sites/puppet/modules/ dhutty/nginx
 	git clone git://github.com/akumria/puppet-postgresql.git sites/puppet/modules/postgresql
 	git clone git://github.com/puppetmodules/puppet-module-python.git sites/puppet/modules/python
 	git clone git://github.com/codeinthehole/puppet-userconfig.git sites/puppet/modules/userconfig
@@ -104,3 +109,7 @@ clean:
 	# Remove files not in source control
 	find . -type f -name "*.pyc" -delete
 	rm -rf nosetests.xml coverage.xml htmlcov *.egg-info *.pdf dist violations.txt
+
+preflight: lint
+    # Bare minimum of tests to run before pushing to master
+	./runtests.py
