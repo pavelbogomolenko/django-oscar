@@ -1,0 +1,6 @@
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
+aws s3 sync static/img s3://icon-oscar/img --region=eu-west-1
+aws s3 sync static/font s3://icon-oscar/font --region=eu-west-1
+aws s3 sync static/js s3://icon-oscar/js --region=eu-west-1
+aws s3 sync static/css s3://icon-oscar/css --region=eu-west-1
