@@ -291,7 +291,7 @@ INSTALLED_APPS = [
 	'storages',
 	'categories',
 	'categories.editor',
-	'apps.oscartweaks'
+	'sites.icon.apps.oscartweaks'
 ]
 
 from oscar import get_core_apps
