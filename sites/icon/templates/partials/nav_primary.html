@@ -19,9 +19,12 @@
 
 <div class="ddsubmenustyle" style="z-index: 2000; left: 0px; top: -1000px; visibility: hidden; height: 195px; width: 150px; overflow: visible; opacity: 1;">
 	{% full_tree_for_category categories.category as categories %}
-	{% for node,structure in categories|tree_info %}
-		{% if structure.new_level %}<ul class="dropdown" id="ddsubmenu1"><li>{% else %}</li><li>{% endif %}
-		<a href="#">{{ node.name }}</a>
-		{% for level in structure.closed_levels %}</li></ul>{% endfor %}
-	{% endfor %}
+	{% if categories %}
+		{% for node,structure in categories|tree_info %}
+			{% if structure.new_level %}<ul class="dropdown" id="ddsubmenu1"><li>{% else %}</li><li>{% endif %}
+			{% related_category_node node %}
+			<a {% if related_cat_node.pk == category.pk %}class="active"{% endif %} href="{{ related_cat_node.get_absolute_url }}">{{ related_cat_node.name }}</a>
+			{% for level in structure.closed_levels %}</li></ul>{% endfor %}
+		{% endfor %}
+	{% endif %}
 </div>

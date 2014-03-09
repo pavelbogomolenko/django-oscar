@@ -8209,3 +8209,23 @@ msgstr "Неверный формат местного номера телефо
 #: views/generic.py:200
 msgid "This is not a valid local or international phone format."
 msgstr "Неверный местный или международный формат номера телефона."
+
+#: templates/partials/nav_primary.html:10
+msgid "Home"
+msgstr "Главная"
+
+#: templates/partials/nav_primary.html:11
+msgid "Faq"
+msgstr "Вопросы"
+
+#: templates/partials/nav_primary.html:12
+msgid "Delivery"
+msgstr "Доставка"
+
+#: templates/partials/nav_primary.html:13
+msgid "Browse store"
+msgstr "Каталог"
+
+#: templates/partials/nav_primary.html:14
+msgid "Contacts"
+msgstr "Контакты"

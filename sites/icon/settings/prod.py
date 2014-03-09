@@ -36,3 +36,5 @@ AWS_HEADERS = {
 	'Expires': 'Thu, 15 Apr 2010 20:00:00 GMT',
 	'Cache-Control': 'max-age=86400',
 }
+
+INSTALLED_APPS['apps.oscartweaks'] = 'sites.icon.apps.oscartweaks'
