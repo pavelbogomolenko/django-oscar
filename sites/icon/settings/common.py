@@ -290,8 +290,7 @@ INSTALLED_APPS = [
 	'compressor',
 	'storages',
 	'categories',
-	'categories.editor',
-	'apps.oscartweaks'
+	'categories.editor'
 ]
 
 from oscar import get_core_apps

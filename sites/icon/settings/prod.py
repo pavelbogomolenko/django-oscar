@@ -37,4 +37,4 @@ AWS_HEADERS = {
 	'Cache-Control': 'max-age=86400',
 }
 
-INSTALLED_APPS['apps.oscartweaks'] = 'sites.icon.apps.oscartweaks'
+INSTALLED_APPS = INSTALLED_APPS + ['sites.icon.apps.oscartweaks']
