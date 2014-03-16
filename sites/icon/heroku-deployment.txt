@@ -1,0 +1,73 @@
+Django deployment on heroku
+---------------------------
+1. Create virtualenv
+
+virtualenv env
+source env/bin/activate
+
+2. Heroku toolbelt
+pip install django-toolbelt
+
+3. Make sure that at least you have these packages installed
+
+Django (the web framework)
+Gunicorn (WSGI server)
+dj-database-url (a Django configuration helper)
+dj-static (a Django static file server)
+
+4. Procfile (https://devcenter.heroku.com/articles/procfile)
+web: gunicorn hellodjango.wsgi
+
+5. Collect python packages
+pip freeze > requirements.txt
+
+6. Split your appication settings depending on enviroment:
+
+development.py
+production.py
+(staging.py)
+
+Extract common parts to: common.py
+
+DB settings for heroku production will look like:
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+7. Create WSGI (Web Server Gateway Interface) file for your application and put:
+
+from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
+
+application = Cling(get_wsgi_application())
+
+8. Put your application under Git
+
+$ git init
+$ git add .
+$ git commit -m "my django app"
+
+9. Deploy to Heroku
+
+$ heroku create
+$ git push heroku master
+
+10. Syncing and migrating database
+
+$ heroku run python manage.py syncdb
+$ heroku run python manage.py migrate
+
+11. Checking the logs:
+
+$ heroku logs
+
+Other usefull tips:
+
+1. Store all you static files and media in CDN(Content delivery network). E.g. Amazon S3
+2. Backup/restore DB
+heroku addons:add pgbackups
+heroku pgbackups:capture
+restore locally
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U myuser -d mydb latest.dump
+
