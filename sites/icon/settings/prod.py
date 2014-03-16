@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ['.herokuapp.com']
 # LESS/CSS/statics
 # ================
 #USE_LESS = True
-COMPRESS_ENABLED = True
+#COMPRESS_ENABLED = True
 
 STATIC_URL = 'https://icon-oscar.s3.amazonaws.com/'
 COMPRESS_URL = STATIC_URL
