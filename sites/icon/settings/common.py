@@ -283,7 +283,7 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'django_extensions',
 	# Debug toolbar + extensions
-	#'debug_toolbar',
+	'debug_toolbar',
 	'template_timings_panel',
 	'south',
 	'rosetta',          # For i18n testing
