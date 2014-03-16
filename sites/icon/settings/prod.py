@@ -31,8 +31,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'icon-oscar'
 #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = 'sites.icon.apps.oscartweaks.storage.CachedS3BotoStorage'
-COMPRESS_STORAGE = 'sites.icon.apps.oscartweaks.storage.CachedS3BotoStorage'
+STATICFILES_STORAGE = 'sites.icon.apps.oscartweaks.storage.cacheds3boto.CachedS3BotoStorage'
+COMPRESS_STORAGE = 'sites.icon.apps.oscartweaks.storage.cacheds3boto.CachedS3BotoStorage'
 AWS_S3_FILE_OVERWRITE = False
 AWS_PRELOAD_METADATA = True
 
