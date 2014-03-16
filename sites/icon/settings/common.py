@@ -409,11 +409,11 @@ if not os.path.exists(LOG_ROOT):
 
 # Sorl
 # ====
-#THUMBNAIL_DEBUG = True
-#THUMBNAIL_KEY_PREFIX = 'oscar-icon'
+THUMBNAIL_DEBUG = True
+THUMBNAIL_KEY_PREFIX = 'oscar-icon'
 
 # Use a custom KV store to handle integrity error
-#THUMBNAIL_KVSTORE = 'oscar.sorl_kvstore.ConcurrentKVStore'
+THUMBNAIL_KVSTORE = 'oscar.sorl_kvstore.ConcurrentKVStore'
 
 # Django 1.6 has switched to JSON serializing for security reasons, but it does not
 # serialize Models. We should resolve this by extending the
