@@ -1,6 +1,6 @@
-{% load thumbnail %}
 {% load i18n %}
 {% load staticfiles %}
+{% load static %}
 
 {% with all_images=product.images.all %}
 	{# use length rather then count as the images get queried anyways #}
@@ -9,9 +9,7 @@
 
 		<div class="item-image">
 			{% for image in all_images %}
-				{% thumbnail image.original "200x180" upscale=False as thumb %}
-					<img src="{{ thumb.url }}" alt="{{ product.get_title }}"/>
-				{% endthumbnail %}
+					<img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" height="180"/>
 			{% endfor %}
 		</div>
 
@@ -21,9 +19,7 @@
 
 		<div class="item active">
 			{% with image=product.primary_image %}
-				{% thumbnail image.original "200x180" upscale=False as thumb %}
-					<img src="{{ thumb.url }}" alt="{{ product.get_title }}"/>
-				{% endthumbnail %}
+				<img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" height="180"/>
 			{% endwith %}
 		</div>
 

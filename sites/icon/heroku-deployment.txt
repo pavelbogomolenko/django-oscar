@@ -68,6 +68,8 @@ Other usefull tips:
 2. Backup/restore DB
 heroku addons:add pgbackups
 heroku pgbackups:capture
-restore locally
-pg_restore --verbose --clean --no-acl --no-owner -h localhost -U myuser -d mydb latest.dump
+curl -o latest.dump `heroku pgbackups:url`
 
+restore locally
+
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U oscar-icon -d oscar-icon latest.dump

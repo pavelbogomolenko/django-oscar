@@ -23,4 +23,3 @@ DATABASES = {
 }
 
 INSTALLED_APPS = INSTALLED_APPS + ['apps.oscartweaks']
-

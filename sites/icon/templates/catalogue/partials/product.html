@@ -4,6 +4,7 @@
 {% load i18n %}
 {% load display_tags %}
 {% load staticfiles %}
+{% load static %}
 
 {% block product %}
 	<div class="col-md-4 col-sm-4 col-xs-6">
@@ -29,9 +30,7 @@
 				<!-- Item image -->
 				<div class="item-image">
 					{% with image=product.primary_image %}
-						{% thumbnail image.original "x155" upscale=False as thumb %}
-							<a href="{{ product.get_absolute_url }}"><img src="{{ thumb.url }}" alt="{{ product.get_title }}"  class="img-responsive"></a>
-						{% endthumbnail %}
+						<a href="{{ product.get_absolute_url }}"><img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}"  class="img-responsive" height="155"></a>
 					{% endwith %}
 				</div>
 			{% endblock %}
