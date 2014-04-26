@@ -1,0 +1,21 @@
+{
+	"name": "iconshop",
+	"version": "0.0.1",
+	"description": "iconshop",
+	"author": {
+		"name": "Pavlo bogomolenko"
+	},
+	"dependencies": {
+		"bower":"1.3.*"
+	},
+	"devDependencies": {
+	},
+	"engines": {
+		"node": "~0.10"
+	},
+	"licenses": [
+		{
+			"type": "GPL"
+		}
+	]
+}

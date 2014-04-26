@@ -1,0 +1,25 @@
+{
+	"name": "js",
+	"version": "0.6.3",
+	"homepage": "https://github.com/pavelbogomolenko/django-oscar",
+	"authors": [
+		"Pavlo Bogomolenko <bpsource@gmail.com>"
+	],
+	"license": "MIT",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"static/js/app/vendors/bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"jquery": "1.11.*",
+		"fancybox": "*",
+		"bootstrap": "*",
+		"html5shiv": "*",
+		"carouFredSel": "*"
+	}
+}

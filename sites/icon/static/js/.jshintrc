@@ -1,0 +1,12 @@
+{
+	"asi": false,
+	"expr": true,
+	"curly": true,
+	"eqnull": true,
+	"eqeqeq": true,
+	"undef": true,
+	"smarttabs": true,
+	"globals": {
+		"jQuery": true
+	}
+}

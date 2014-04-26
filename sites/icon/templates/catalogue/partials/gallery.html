@@ -9,7 +9,7 @@
 
 		<div class="item-image">
 			{% for image in all_images %}
-					<img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" height="180"/>
+					<a class="fancybox" rel="group" href="{% get_static_prefix %}{{ image.original }}"><img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" /></a>
 			{% endfor %}
 		</div>
 
@@ -19,10 +19,8 @@
 
 		<div class="item active">
 			{% with image=product.primary_image %}
-				<img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" height="180"/>
+				<a class="fancybox" rel="group" href="{% get_static_prefix %}{{ image.original }}"><img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" /></a>
 			{% endwith %}
 		</div>
-
-
 	{% endif %}
 {% endwith %}
