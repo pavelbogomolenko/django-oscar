@@ -2,7 +2,7 @@
 
 import os
 
-OSCAR_SHOP_NAME = 'Icon'
+OSCAR_SHOP_NAME = 'Образ'
 
 # Path helper
 PROJECT_DIR = os.path.dirname(__file__)
@@ -343,7 +343,7 @@ from oscar.defaults import *
 # Meta
 # ====
 
-OSCAR_SHOP_TAGLINE = 'Icon'
+OSCAR_SHOP_TAGLINE = 'Образ'
 
 # Enter Google Analytics ID for the tracking to be included in the templates
 #GOOGLE_ANALYTICS_ID = 'UA-45363517-3'
