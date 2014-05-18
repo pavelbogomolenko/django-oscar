@@ -70,6 +70,9 @@ heroku addons:add pgbackups
 heroku pgbackups:capture
 curl -o latest.dump `heroku pgbackups:url`
 
+access DB
+heroku pg:psql
+
 restore locally
 
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -U oscar-icon -d oscar-icon latest.dump

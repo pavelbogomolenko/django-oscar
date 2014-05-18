@@ -8227,5 +8227,14 @@ msgid "Browse store"
 msgstr "Каталог"
 
 #: templates/partials/nav_primary.html:14
+#: templates/partials/footer.html:46
 msgid "Contacts"
 msgstr "Контакты"
+
+#: templates/partials/footer.html:30
+msgid "Сaterories"
+msgstr "Категории"
+
+#: templates/partials/footer.html:12
+msgid "About us"
+msgstr "О Нас"
