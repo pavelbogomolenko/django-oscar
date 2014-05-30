@@ -1,55 +1,7 @@
 $(document).ready(function() {
-	/* Bootstrap Carousel */
-	$('.carousel').carousel({
-		interval: 8000,
-		pause: "hover"
-	});
-
-	/* Ecommerce single item carousel */
-	$('.ecarousel').carousel({
-		interval: 8000,
-		pause: "hover"
-	});
-
-	/* Navigation Menu */
-
-	ddlevelsmenu.setup("ddtopmenubar", "topbar");
-
-	/* Dropdown Select */
-
-	/* Navigation (Select box) */
-
-	// Create the dropdown base
-
-	$("<select />").appendTo(".navis");
-
-	// Create default option "Go to..."
-
-	$("<option />", {
-		"selected": "selected",
-		"value": "",
-		"text": "Menu"
-	}).appendTo(".navis select");
-
-	// Populate dropdown with menu items
-
-	$(".navi a").each(function () {
-		var el = $(this);
-		$("<option />", {
-			"value": el.attr("href"),
-			"text": el.text()
-		}).appendTo(".navis select");
-	});
-
-	$(".navis select").change(function () {
-		window.location = $(this).find("option:selected").val();
-	});
-
 
 	/* Recent post carousel (CarouFredSel) */
-
 	/* Carousel */
-
 	if($('#carousel_container').get(0)) {
 		$('#carousel_container').carouFredSel({
 			responsive: true,
@@ -79,8 +31,6 @@ $(document).ready(function() {
 	}
 
 	/* Scroll to Top */
-
-
 	$(".totop").hide();
 
 	$(function () {

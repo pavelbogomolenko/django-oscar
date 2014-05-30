@@ -5,27 +5,23 @@
 {% load i18n %}
 
 <!-- Navigation menu -->
-<div class="navi">
-	<div id="ddtopmenubar" class="mattblackmenu">
-		<ul>
-			<li><a href="/">{% trans "Home" %}</a></li>
-			<li><a href="/faq/">{% trans "Вопросы" %}</a></li>
-			<li><a href="/delivery/">{% trans "Доставка" %}</a></li>
-			<li><a href="{% url 'catalogue:index' %}" rel="ddsubmenu1">{% trans "Browse store" %}</a>
-			</li>
-			<li><a href="/contacts/">{% trans "Контакты" %}</a></li>
-		</ul>
-	</div>
-</div>
-
-<div class="ddsubmenustyle" style="z-index: 2000; left: 0px; top: -1000px; visibility: hidden; height: 195px; width: 150px; overflow: visible; opacity: 1;">
-	{% full_tree_for_category categories.category as categories %}
-	{% if categories %}
-		{% for node,structure in categories|tree_info %}
-			{% if structure.new_level %}<ul class="dropdown" id="ddsubmenu1"><li>{% else %}</li><li>{% endif %}
-			{% related_category_node node %}
-			<a {% if related_cat_node.pk == category.pk %}class="active"{% endif %} href="{{ related_cat_node.get_absolute_url }}">{{ related_cat_node.name }}</a>
-			{% for level in structure.closed_levels %}</li></ul>{% endfor %}
-		{% endfor %}
-	{% endif %}
+<div class="collapse navbar-collapse mattblackmenu" role="navigation">
+	<ul class="nav navbar-nav">
+		<li {% if request.path == '/' %}class="active"{% endif %}><a href="/">{% trans "Home" %}</a></li>
+		<li {% if request.path == '/faq/' %}class="active"{% endif %}><a href="/faq/">{% trans "Вопросы" %}</a></li>
+		<li {% if request.path == '/delivery/' %}class="active"{% endif %}><a href="/delivery/">{% trans "Доставка" %}</a></li>
+		<li class="dropdown-submenu {% if request.path == '/catalogue/' %}active{% endif %}">
+			<a href="{% url 'catalogue:index' %}">{% trans "Browse store" %}</a>
+				{% full_tree_for_category categories.category as categories %}
+				{% if categories %}
+					{% for node,structure in categories|tree_info %}
+						{% if structure.new_level %}<ul class="dropdown-menu ddsubmenustyle" ><li>{% else %}</li><li class="dropdown-submenu">{% endif %}
+					{% related_category_node node %}
+					<a href="{{ related_cat_node.get_absolute_url }}">{{ related_cat_node.name }}</a>
+					{% for level in structure.closed_levels %}</li></ul>{% endfor %}
+					{% endfor %}
+				{% endif %}
+		</li>
+		<li  {% if request.path == '/contacts/' %}class="active"{% endif %}><a href="/contacts/">{% trans "Контакты" %}</a></li>
+	</ul>
 </div>
