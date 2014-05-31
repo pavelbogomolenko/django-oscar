@@ -45,8 +45,8 @@ function deploymentSteps {
 
 	#sync files with S3
 	echo "Sync files with s3 ..."
-	aws s3 sync sites/icon/static s3://icon-oscar/ --region=eu-west-1
-	aws s3 sync /Users/pavelbogomolenko/Documents/www/misc/py/django/oscarenv2.7/lib/python2.7/site-packages/Django-1.6.1-py2.7.egg/django/contrib/admin/static/admin s3://icon-oscar/admin --region=eu-west-1
+	aws s3 sync sites/icon/static s3://icon-oscar/ --acl public-read --region=eu-west-1
+	aws s3 sync /Users/pavelbogomolenko/Documents/www/misc/py/django/oscarenv2.7/lib/python2.7/site-packages/Django-1.6.1-py2.7.egg/django/contrib/admin/static/admin s3://icon-oscar/admin --acl public-read --region=eu-west-1
 
 	#clean-up S3 files
 	echo "Clean up s3 folder from backup files ..."

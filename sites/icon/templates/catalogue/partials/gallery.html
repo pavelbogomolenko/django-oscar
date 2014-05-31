@@ -2,22 +2,27 @@
 {% load staticfiles %}
 {% load static %}
 
+
 {% with all_images=product.images.all %}
 	{# use length rather then count as the images get queried anyways #}
 
 	{% if all_images|length > 1 %}
 
-		<div class="item-image">
+		<div class="col-md-2 col-xs-5">
 			{% for image in all_images %}
-					<a class="fancybox" rel="group" href="{% get_static_prefix %}{{ image.original }}"><img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" /></a>
+				<a class="fancybox" rel="group" href="{% get_static_prefix %}{{ image.original }}"><img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="50" /></a>
 			{% endfor %}
 		</div>
-
+		<div class="col-md-4 col-xs-5 mainimage">
+			{% with image=product.primary_image %}
+				<a class="fancybox" rel="group" href="{% get_static_prefix %}{{ image.original }}"><img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" /></a>
+			{% endwith %}
+		</div>
 	{% else %}
 
 		{# Only one image to show #}
 
-		<div class="item active">
+		<div class="col-md-4 col-xs-5">
 			{% with image=product.primary_image %}
 				<a class="fancybox" rel="group" href="{% get_static_prefix %}{{ image.original }}"><img src="{% get_static_prefix %}{{ image.original }}" alt="{{ product.get_title }}" width="200" /></a>
 			{% endwith %}
