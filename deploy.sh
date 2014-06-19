@@ -39,6 +39,11 @@ function checkRequiredArguments {
 }
 
 function deploymentSteps {
+	#create DB backup and download it
+	echo "Creating DB backup and download it"
+	heroku pgbackups:capture
+	curl -o latest.dump `heroku pgbackups:url`
+
 	#push to heroku
 	echo "Push changes to heroku ..."
 	git push heroku master

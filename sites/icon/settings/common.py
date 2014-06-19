@@ -17,7 +17,7 @@ ADMINS = (
 	('Pavlo Bogomolenko', 'bpsource@gmail.com'),
 )
 
-EMAIL_SUBJECT_PREFIX = '[icon] '
+EMAIL_SUBJECT_PREFIX = 'Галлерея Образ'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MANAGERS = ADMINS
