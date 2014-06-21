@@ -484,6 +484,12 @@ div.mattblackmenu {
 	padding-right: 15px;
 }
 
+.navbar-text {
+	float: none;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
 /* SELECT MENU */
 
 .navis select {

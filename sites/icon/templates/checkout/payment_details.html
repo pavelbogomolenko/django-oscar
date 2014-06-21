@@ -18,6 +18,14 @@
 
 {% block payment_details %}
 	{% block payment_details_content %}
-		<p>{% trans "Удобный для Вас способ оплаты Вы сможете уточнить с представителем нашей компании" %}</p>
+		<div class="blocky">
+			<div class="container">
+				<div class="row">
+					<p>{% trans "Удобный для Вас способ оплаты Вы сможете уточнить с представителем нашей компании" %}</p>
+					<br/>
+					<a href="{% url 'checkout:preview' %}" class="btn btn-primary btn-large">{% trans "Continue" %}</a>
+				</div>
+			</div>
+		</div>
 	{% endblock payment_details_content %}
 {% endblock payment_details %}
