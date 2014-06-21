@@ -87,6 +87,7 @@
 
 				{# You will almost certainly want to override this block to provide a payment summary #}
 				{% block payment_method %}
+					<!--
 					<div class="span6">
 						<div class="sub-header">
 							<h2>{% trans "Payment" %}</h2>
@@ -102,12 +103,19 @@
 							</div>
 						</div>
 					</div>
+					-->
 				{% endblock payment_method %}
 			</div>
 		</div>
 	</div>
 
 	{% block order_contents %}
+		<div class="blocky">
+		<div class="container">
+		<div class="row">
+
+		<div class="span6">
+
 		<div class="sub-header">
 			<h2>{% trans "Order contents" %}</h2>
 		</div>
@@ -165,6 +173,12 @@
 				<a href="{% url 'basket:summary' %}" class="btn">{% trans "Edit order contents" %}</a>
 			</div>
 		{% endblock %}
+
+		</div>
+
+		</div>
+		</div>
+		</div>
 
 	{% endblock order_contents %}
 

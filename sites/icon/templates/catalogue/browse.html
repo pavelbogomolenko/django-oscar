@@ -73,9 +73,9 @@
 						<div class="col-md-3 col-md-pull-9">
 							<div class="sidey">
 								{% for node,structure in categories|tree_info %}
-									{% if structure.new_level %}<ul class="nav"><li>{% else %}</li><li>{% endif %}
 									{% related_category_node node %}
-									<a {% if related_cat_node.pk == category.pk %}class="active"{% endif %} href="{{ related_cat_node.get_absolute_url }}">{{ related_cat_node.name }}</a>
+									{% if structure.new_level %}<ul class="nav"><li {% if related_cat_node.pk == category.pk %}class="active"{% endif %}>{% else %}</li><li {% if related_cat_node.pk == category.pk %}class="active"{% endif %}>{% endif %}
+									<a href="{{ related_cat_node.get_absolute_url }}">{{ related_cat_node.name }}</a>
 									{% for level in structure.closed_levels %}</li></ul>{% endfor %}
 								{% endfor %}
 							</div>
