@@ -478,6 +478,12 @@ div.mattblackmenu {
 	margin-left:10px;
 }
 
+.horrizontal-nav li{
+	display: inline;
+	list-style-type: none;
+	padding-right: 15px;
+}
+
 /* SELECT MENU */
 
 .navis select {

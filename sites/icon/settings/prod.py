@@ -43,3 +43,5 @@ AWS_PRELOAD_METADATA = True
 # }
 
 INSTALLED_APPS = INSTALLED_APPS + ['sites.icon.apps.oscartweaks']
+
+GOOGLE_ANALYTICS_ID = 'UA-52137568-1'
