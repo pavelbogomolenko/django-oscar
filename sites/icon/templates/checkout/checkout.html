@@ -119,60 +119,52 @@
 		<div class="sub-header">
 			<h2>{% trans "Order contents" %}</h2>
 		</div>
-		<div class="basket-title">
-			<div class="row-fluid">
-				<h4 class="span9">{% trans "Product" %}</h4>
-				<h4 class="span1 align-center">{% trans "Quantity" %}</h4>
-				<h4 class="span2 align-right">{% trans "Price" %}</h4>
-			</div>
-		</div>
-		{% for line in basket.all_lines %}
-			{% purchase_info_for_line request line as session %}
-			<div class="basket-items">
-				<div class="row-fluid">
-					<div class="span2">
-						<div class="image_container">
+
+		<table class="table table-striped">
+
+			<thead>
+				<tr>
+					<th>{% trans "Product" %}</th>
+					<th>{% trans "Quantity" %}</th>
+					<th>{% trans "Price" %}</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for line in basket.all_lines %}
+					{% purchase_info_for_line request line as session %}
+					<tr>
+						<td>
 							{% with image=line.product.primary_image %}
 								{% thumbnail image.original "100x100" upscale=False as thumb %}
-									<a href="{{ form.instance.product.get_absolute_url }}"><img class="thumbnail"
-									                                                            src="{{ thumb.url }}"
-									                                                            alt="{{ product.get_title }}"></a>
+									<a href="{{ form.instance.product.get_absolute_url }}">
+										<img class="thumbnail" src="{{ thumb.url }}" alt="{{ product.get_title }}">
+									</a>
 								{% endthumbnail %}
 							{% endwith %}
-						</div>
-					</div>
-					<div class="span7">
-						<h4><a href="{{ line.product.get_absolute_url }}">{{ line.description }}</a></h4>
-						<span class="availability {{ session.availability.code }}">{{ session.availability.message }}</span>
-					</div>
-					<div class="span1 align-center">
-						{{ line.quantity }}
-					</div>
-					<div class="span2 align-right">
-						<p class="price_color">
+							<p><a href="{{ line.product.get_absolute_url }}">{{ line.description }}</a></p>
+							<p class="availability {{ session.availability.code }}">{{ session.availability.message }}</p>
+						</td>
+						<td>{{ line.quantity }}</td>
+						<td>
 							{% if not show_tax_separately and line.is_tax_known %}
 								{{ line.line_price_incl_tax|currency:basket.currency }}
 							{% else %}
 								{{ line.line_price_excl_tax|currency:basket.currency }}
 							{% endif %}
-						</p>
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-
-		<div class="row-fluid">
-			<div class="span6">&nbsp;</div>
-			<div class="span6">
+						</td>
+					</tr>
+				{% endfor %}
 				{% include 'basket/partials/basket_totals.html' %}
-			</div>
-		</div>
+				{% block order_contents_actions %}
+					<tr>
+						<td colspan="5"></td>
+						<td><a href="{% url 'basket:summary' %}" class="btn">{% trans "Edit order contents" %}</a></td>
+					</tr>
+				{% endblock %}
+			</tbody>
 
-		{% block order_contents_actions %}
-			<div class="form-actions">
-				<a href="{% url 'basket:summary' %}" class="btn">{% trans "Edit order contents" %}</a>
-			</div>
-		{% endblock %}
+		</table>
 
 		</div>
 
